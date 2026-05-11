@@ -32,6 +32,23 @@ export default function App() {
     setIsFirstVisit(false);
   };
 
+  const getSampleHabits = () => {
+    const today = new Date().toISOString().split("T")[0];
+    return [{
+      id: 999,
+      name: "Đây là data mẫu khi mất kết nối BE",
+      color: "#8B5CF6",
+      type: "check",
+      area: "mindfulness",
+      timeOfDay: "morning",
+      frequencyType: "daily",
+      streak: 1,
+      bestStreak: 1,
+      checkIns: [{ date: today, status: "none" }],
+      createdAt: today,
+    }];
+  };
+
   const fetchHabits = async () => {
     try {
       const response = await axios.get(`${API_URL}/habits`);
@@ -91,22 +108,6 @@ export default function App() {
     }
   }, [settings.privacyLock]);
 
-  const getSampleHabits = () => {
-    const today = new Date().toISOString().split("T")[0];
-    return [{
-      id: 999,
-      name: "Đây là data mẫu khi mất kết nối BE",
-      color: "#8B5CF6",
-      type: "check",
-      area: "mindfulness",
-      timeOfDay: "morning",
-      frequencyType: "daily",
-      streak: 1,
-      bestStreak: 1,
-      checkIns: [{ date: today, status: "none" }],
-      createdAt: today,
-    }];
-  };
 
   // --- LOGIC LƯU THÓI QUEN (DÙNG CHO CẢ THÊM MỚI VÀ SỬA) ---
   const handleSaveHabit = async (habitData) => {

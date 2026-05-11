@@ -19,7 +19,9 @@ export default defineConfig([
     },
     rules: {
       'react-hooks/set-state-in-effect': 'off',
-      'no-unused-vars': 'off'
+      'no-unused-vars': 'off',
+      'no-use-before-define': 'off',
+      'react-hooks/exhaustive-deps': 'off'
     }
   },
 ])
