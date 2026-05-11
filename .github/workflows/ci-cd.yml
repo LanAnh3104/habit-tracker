@@ -2,7 +2,7 @@ name: Habit Tracker CI/CD
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "dev" ]
   pull_request:
     branches: [ "main" ]
 
@@ -29,7 +29,7 @@ jobs:
     - name: Run Tests
       run: npm test --if-present
 
-  # Job 2: Build và Test Frontend (Vite)
+  # Job 2: Build, Lint và Test Frontend (Vite)
   build-frontend:
     runs-on: ubuntu-latest
     defaults:
@@ -41,17 +41,20 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '18'
+        node-version: '20'
         cache: 'npm'
         cache-dependency-path: ./frontend/package-lock.json
         
     - name: Install Dependencies
       run: npm ci
       
+    - name: Run Linter
+      run: npm run lint
+      
     - name: Build Vite App
       run: npm run build
       
-    - name: Run Linter/Tests
+    - name: Run Tests
       run: npm test --if-present
 
   # Job 3: Build Docker Images (Chạy khi 2 job trên thành công)
