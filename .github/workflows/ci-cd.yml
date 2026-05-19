@@ -67,3 +67,21 @@ jobs:
       run: docker build -t habit-tracker-backend ./backend
     - name: Build Frontend Image
       run: docker build -t habit-tracker-frontend ./frontend
+
+  # Job 4: Deploy lên Production (Chỉ chạy khi push vào nhánh main)
+  deploy:
+    needs: [docker-build]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+    - name: Deploy Backend lên Render
+      run: |
+        echo "🚀 Triggering Render deploy..."
+        curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
+        echo "✅ Render deploy triggered!"
+
+    - name: Deploy Frontend lên Vercel
+      run: |
+        echo "🚀 Triggering Vercel deploy..."
+        curl -X POST "${{ secrets.VERCEL_DEPLOY_HOOK_URL }}"
+        echo "✅ Vercel deploy triggered!"
