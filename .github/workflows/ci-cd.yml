@@ -74,14 +74,8 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     steps:
-    - name: Deploy Backend lên Render
+    - name: Deploy lên Vercel
       run: |
-        echo "🚀 Triggering Render deploy..."
-        curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
-        echo "✅ Render deploy triggered!"
-
-    - name: Deploy Frontend lên Vercel
-      run: |
-        echo "🚀 Triggering Vercel deploy..."
+        echo "🚀 Triggering Vercel deploy cho hệ thống..."
         curl -X POST "${{ secrets.VERCEL_DEPLOY_HOOK_URL }}"
         echo "✅ Vercel deploy triggered!"
